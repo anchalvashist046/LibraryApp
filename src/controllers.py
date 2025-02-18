@@ -1,4 +1,3 @@
-
 def get_book():
     books= Book.query.all() #SQLAlchemy query
     book_list=[]
@@ -25,5 +24,3 @@ def create_book():
     db.session.commit()
 
     return jsonify({'message':'Book created sucessfully'}), 201
-
-
