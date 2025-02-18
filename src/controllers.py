@@ -24,3 +24,4 @@ def create_book():
     db.session.commit()
 
     return jsonify({'message':'Book created sucessfully'}), 201
+
