@@ -1,5 +1,5 @@
 from flask import Blueprint
-from .controller import (
+from .controllers import (
     get_all_authors, get_author_by_id, create_author, update_author, delete_author,
     get_all_books, get_book_by_id, create_book, update_book, delete_book
 )
