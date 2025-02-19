@@ -18,8 +18,8 @@ app.config.from_object(config)
 
 
 # Database setup
-engine = sqlalchemy.create_engine(config.SQLALCHEMY_DATABASE_URI)
-SessionLocal = sessionmaker(bind=engine)
+# engine = sqlalchemy.create_engine(config.SQLALCHEMY_DATABASE_URI)
+# SessionLocal = sessionmaker(bind=engine)
 
 @app.route("/")
 def home():
