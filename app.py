@@ -10,7 +10,7 @@
 from flask import Flask
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
-from config import Config
+from config import config
 
 
 app = Flask(__name__)
