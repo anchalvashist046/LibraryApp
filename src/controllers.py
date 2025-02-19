@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from .models import Author, Book
-from . import db
+from .db import get_db # Import the get_db function
 
 # ---------- Author Operations ----------
 def get_all_authors():
@@ -43,8 +43,11 @@ def get_book_by_id(book_id):
 def create_book():
     data = request.get_json()
     new_book = Book(title=data['title'], author_id=data['author_id'])
-    db.session.add(new_book)
-    db.session.commit()
+    db = get_db().__next__()  # Get the db session from the generator
+
+    db.add(new_book)
+    db.commit()
+    db.refresh(new_book)  # Refresh the new_book object to get the ID
     return jsonify({'message': 'Book created', 'id': new_book.id})
 
 def update_book(book_id):
