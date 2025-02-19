@@ -1,7 +1,7 @@
 
 
 from flask import Flask
-from LibraryApp import create_app  # Import the create_app function
+from library_application import create_app  # Import the create_app function
 
 app = create_app()  # Create the Flask app instance
 
