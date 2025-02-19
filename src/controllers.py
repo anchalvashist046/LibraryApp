@@ -14,9 +14,17 @@ def get_author_by_id(author_id):
 def create_author():
     data = request.get_json()
     new_author = Author(name=data['name'])
-    db.session.add(new_author)
-    db.session.commit()
-    return jsonify({'message': 'Author created', 'id': new_author.id})
+
+    db = get_db().__next__()  # Get the database session
+
+    db.add(new_author)
+    try:
+        db.commit()
+        db.refresh(new_author)  # Refresh the new_author object to get the ID
+        return jsonify({'message': 'Author created', 'id': new_author.id})
+    except Exception as e:
+        db.rollback()  # Rollback in case of any error
+        return jsonify({'error': str(e)}), 500  # Return error message
 
 def update_author(author_id):
     author = Author.query.get_or_404(author_id)
