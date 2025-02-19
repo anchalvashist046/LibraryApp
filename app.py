@@ -1,7 +1,8 @@
 
 
 from flask import Flask
-from library_application import create_app  # Import the create_app function
+from src import create_app
+  # Import the create_app function
 
 app = create_app()  # Create the Flask app instance
 

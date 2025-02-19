@@ -18,14 +18,17 @@
 #     return app
 
 from flask import Flask
+import os
 
-def create_app(config_filename="config.py"):
+# If you have models defined using SQLAlchemy's Base, you can import them and create tables:
+from .db import engine  # your raw SQLAlchemy engine
+from .models  import Base  # assuming you use declarative_base() in your models
+
+# def create_app(config_filename="config.py"):
+def create_app(config_filename=os.path.join(os.path.dirname(os.path.dirname(__file__)), "config.py")):
     app = Flask(__name__)
     app.config.from_pyfile(config_filename)
 
-    # If you have models defined using SQLAlchemy's Base, you can import them and create tables:
-    from db import engine  # your raw SQLAlchemy engine
-    from models import Base  # assuming you use declarative_base() in your models
 
     # Create tables (you might want to do this conditionally)
     Base.metadata.create_all(engine)
