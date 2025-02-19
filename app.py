@@ -10,14 +10,15 @@
 from flask import Flask
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
-from config import Config
+from config import config
 
 
 app = Flask(__name__)
-app.config.from_object(Config)
+app.config.from_object(config)
+
 
 # Database setup
-engine = sqlalchemy.create_engine(Config.SQLALCHEMY_DATABASE_URI)
+engine = sqlalchemy.create_engine(config.SQLALCHEMY_DATABASE_URI)
 SessionLocal = sessionmaker(bind=engine)
 
 @app.route("/")
@@ -26,3 +27,4 @@ def home():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
