@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "postgresql://postgres:anchal@db:5432/Library_app" # Corrected: no space, use 'db' as hostname
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:14.16 # Use specific version
+    ports:
+      - "5432:5432" # Optional
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: anchal
+      POSTGRES_DB: Library_app
+    volumes:
+      - db_data:/var/lib/postgresql/data
+volumes:
+  db_data:
