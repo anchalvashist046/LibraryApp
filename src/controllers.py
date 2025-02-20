@@ -8,8 +8,13 @@ def get_all_authors():
     return jsonify([{'id': author.id, 'name': author.name} for author in authors])
 
 def get_author_by_id(author_id):
-    author = Author.query.get_or_404(author_id)
-    return jsonify({'id': author.id, 'name': author.name})
+    db = get_db().__next__()  # Get the database session
+
+    try:
+        author = db.query(Author).get_or_404(author_id)  # Use db session for query
+        return jsonify({'id': author.id, 'name': author.name})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500  # Handle potential errors
 
 def create_author():
     data = request.get_json()
