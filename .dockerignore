@@ -1,0 +1,5 @@
+.DS_Store  # macOS specific file, not needed in Docker
+__pycache__/
+*.pyc      # Compiled Python bytecode files
+.idea/      # IntelliJ IDEA project files (if applicable)
+venv/
