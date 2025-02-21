@@ -5,6 +5,8 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY . .
+RUN chown -R nobody:nogroup /app
+RUN chmod -R 755 /app
 
 RUN pip install gunicorn
 

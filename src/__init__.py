@@ -14,3 +14,5 @@ def create_app(config_filename=os.path.join(os.path.dirname(os.path.dirname(__fi
     register_routes(app)
 
     return app
+
+app = create_app()

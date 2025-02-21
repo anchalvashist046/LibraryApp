@@ -7,15 +7,13 @@ services:
       - "8000:8000"
     depends_on:
       - db
-    environment:
-      DATABASE_URL: "postgresql://postgres:anchal@db:5432/Library_app" # Corrected: no space, use 'db' as hostname
     volumes:
       - .:/app
 
   db:
-    image: postgres:14.16 # Use specific version
+    image: postgres:14.16
     ports:
-      - "5432:5432" # Optional
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: anchal
