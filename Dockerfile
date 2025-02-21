@@ -6,6 +6,8 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
+RUN pip install gunicorn
+
 EXPOSE 8000
 
-CMD ["./venv/bin/gunicorn", "--bind=0.0.0.0:8000", "wsgi:app"]
+CMD ["gunicorn", "--bind=0.0.0.0:8000", "wsgi:app"]
