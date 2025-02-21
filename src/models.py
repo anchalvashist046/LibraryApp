@@ -10,9 +10,7 @@ from sqlalchemy import (
     Boolean,
 )
 from sqlalchemy.orm import relationship, declarative_base
-
-# Create a declarative base
-Base = declarative_base()
+from .db import engine, Base
 
 
 class Author(Base):
@@ -46,3 +44,6 @@ class Book(Base):
 
     def __repr__(self):
         return f'<Book {self.title}>'
+
+
+Base.metadata.create_all(engine)
