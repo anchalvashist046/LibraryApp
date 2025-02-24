@@ -84,5 +84,62 @@ def get_library_items():
     finally:
         session.close()
 
+# api for update
+def update_library_item(item_id, item_type):
+    session = SessionLocal()
+    try:
+        data = request.get_json()
+        if item_type == 'author':
+            item = session.query(Author).filter_by(id=item_id).first()
+            if not item:
+                return jsonify({'error': 'Author not found'}), 404
+            for key, value in data.items():
+                if hasattr(item, key):
+                    setattr(item, key, value)
+        elif item_type == 'book':
+            item = session.query(Book).filter_by(id=item_id).first()
+            if not item:
+                return jsonify({'error': 'Book not found'}), 404
+            for key, value in data.items():
+                if hasattr(item, key):
+                    if key == 'published_date' and value:
+                        setattr(item, key, datetime.strptime(value, '%Y-%m-%d').date())
+                    else:
+                        setattr(item, key, value)
+
+        else:
+            return jsonify({'error': 'Invalid item type'}), 400
+
+        session.commit()
+        return jsonify({'message': f'{item_type.capitalize()} updated successfully'}), 200
+    except Exception as e:
+        session.rollback()
+        return jsonify({'error': str(e)}), 500
+    finally:
+        session.close()
+
+# API for delete
+def delete_library_item(item_id, item_type):
+    session = SessionLocal()
+    try:
+        if item_type == 'author':
+            item = session.query(Author).filter_by(id=item_id).first()
+        elif item_type == 'book':
+            item = session.query(Book).filter_by(id=item_id).first()
+        else:
+            return jsonify({'error': 'Invalid item type'}), 400
+
+        if not item:
+            return jsonify({'error': f'{item_type.capitalize()} not found'}), 404
+
+        session.delete(item)
+        session.commit()
+        return jsonify({'message': f'{item_type.capitalize()} deleted successfully'}), 200
+    except Exception as e:
+        session.rollback()
+        return jsonify({'error': str(e)}), 500
+    finally:
+        session.close()
+
 
 
