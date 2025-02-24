@@ -14,7 +14,7 @@ services:
       - .:/app
 
   db:
-    image: postgres:16
+    image: postgres:14.16
     ports:
       - "5433:5433"
     environment:
