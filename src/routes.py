@@ -1,5 +1,5 @@
 from flask import Blueprint
-from .controllers import create_library_item, get_library_items, update_library_item, delete_library_item
+from .controllers import create_library_item, get_library_items, update_library_item
 
 api = Blueprint('api', __name__)
 
